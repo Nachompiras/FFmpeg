@@ -457,7 +457,7 @@ static int cuvid_output_frame(AVCodecContext *avctx, AVFrame *frame)
     CUdeviceptr mapped_frame = 0;
     int ret = 0, eret = 0;
 
-    av_log(avctx, AV_LOG_TRACE, "cuvid_output_frame\n");)
+    av_log(avctx, AV_LOG_TRACE, "cuvid_output_frame\n");
 
     if (ctx->decoder_flushing) {
         ret = cuvid_decode_packet(avctx, NULL);
