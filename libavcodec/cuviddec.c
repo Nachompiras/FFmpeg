@@ -457,9 +457,7 @@ static int cuvid_output_frame(AVCodecContext *avctx, AVFrame *frame)
     CUdeviceptr mapped_frame = 0;
     int ret = 0, eret = 0;
 
-    av_log(avctx, AV_LOG_TRACE, "cuvid_output_frame\n");
-
-    av_log(avctx, AV_LOG_VERBOSE, "AVFrame Data - Interlaced: %n - TFF: %n", frame.interlaced_frame, frame.top_field_first)
+    av_log(avctx, AV_LOG_TRACE, "cuvid_output_frame\n");)
 
     if (ctx->decoder_flushing) {
         ret = cuvid_decode_packet(avctx, NULL);
@@ -499,6 +497,8 @@ static int cuvid_output_frame(AVCodecContext *avctx, AVFrame *frame)
         params.progressive_frame = parsed_frame.dispinfo.progressive_frame;
         params.second_field = parsed_frame.second_field;
         params.top_field_first = parsed_frame.dispinfo.top_field_first;
+
+         av_log(avctx, AV_LOG_VERBOSE, "parsed_frame.dispinfo.progresive_frame=%n, parsed_frame.dispinfo.top_field_first=%n \n", parsed_frame.dispinfo.progressive_frame, parsed_frame.dispinfo.top_field_first);
 
         ret = CHECK_CU(ctx->cvdl->cuvidMapVideoFrame(ctx->cudecoder, parsed_frame.dispinfo.picture_index, &mapped_frame, &pitch, &params));
         if (ret < 0)
