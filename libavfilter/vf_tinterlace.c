@@ -387,9 +387,11 @@ static int filter_frame(AVFilterLink *inlink, AVFrame *picref)
         if (!out)
             return AVERROR(ENOMEM);
         av_frame_copy_props(out, cur);
+
+
         out->height = outlink->h;
         out->interlaced_frame = 1;
-        out->top_field_first = 1;
+        out->top_field_first = cur->top_field_first;
         out->sample_aspect_ratio = av_mul_q(cur->sample_aspect_ratio, av_make_q(2, 1));
 
         /* write odd frame lines into the upper field of the new frame */
