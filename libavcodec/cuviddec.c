@@ -354,6 +354,8 @@ static int CUDAAPI cuvid_handle_picture_display(void *opaque, CUVIDPARSERDISPINF
     //parsed_frame.dispinfo.progressive_frame = ctx->progressive_sequence;
     // Probemos
 
+    av_log(avctx, AV_LOG_VERBOSE, "AVCodecContext PICTURE_STRUCTURE %s \n", (avctx->sei.picture_timing.picture_struct == AV_PICTURE_STRUCTURE_TOP_FIELD) || (avctx->sei.picture_timing.picture_struct == AV_PICTURE_STRUCTURE_BOTTOM_FIELD) ? "SI" : "NO");
+
     av_log(avctx, AV_LOG_VERBOSE, "NVDEC PARSED FRAME IS PROGRESIVE? %s \n", parsed_frame.dispinfo.progressive_frame ? "SI" : "NO");
     av_log(avctx, AV_LOG_VERBOSE, "NVDEC PARSED FRAME TOP FIELD FIRST? %s \n", parsed_frame.dispinfo.top_field_first ? "SI" : "NO");
 
