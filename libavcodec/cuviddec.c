@@ -351,7 +351,8 @@ static int CUDAAPI cuvid_handle_picture_display(void *opaque, CUVIDPARSERDISPINF
     ctx->internal_error = 0;
 
     // For some reason, dispinfo->progressive_frame is sometimes wrong.
-    parsed_frame.dispinfo.progressive_frame = ctx->progressive_sequence;
+    //parsed_frame.dispinfo.progressive_frame = ctx->progressive_sequence;
+    // Probemos
 
     if (ctx->deint_mode_current == cudaVideoDeinterlaceMode_Weave) {
         av_fifo_generic_write(ctx->frame_queue, &parsed_frame, sizeof(CuvidParsedFrame), NULL);
