@@ -378,11 +378,11 @@ static int filter_frame(AVFilterLink *inlink, AVFrame *picref)
     if (!tinterlace->cur)
         return 0;
 
-    if(!cur->top_field_first)
-        return 0;
-
     av_log(ctx, AV_LOG_VERBOSE, "Frame, Interlaced: %s, CUR FIELD: %s, NEXT FIELD: %s \n", cur->interlaced_frame ? "YES" : "NO", cur->top_field_first ? "TOP" : "BOTTOM", next->top_field_first ? "TOP" : "BOTTOM");
 
+    if(!cur->top_field_first)
+        return 0;
+        
     switch (tinterlace->mode) {
     case MODE_MERGEX2: /* move the odd frame into the upper field of the new image, even into
                         * the lower field, generating a double-height video at same framerate */
