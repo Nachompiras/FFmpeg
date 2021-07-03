@@ -354,6 +354,9 @@ static int CUDAAPI cuvid_handle_picture_display(void *opaque, CUVIDPARSERDISPINF
     //parsed_frame.dispinfo.progressive_frame = ctx->progressive_sequence;
     // Probemos
 
+    av_log(avctx, AV_LOG_VERBOSE, "NVDEC PARSED FRAME IS PROGRESIVE? %s \n", parsed_frame.dispinfo.progressive_frame ? "SI" : "NO");
+    av_log(avctx, AV_LOG_VERBOSE, "NVDEC PARSED FRAME TOP FIELD FIRST? %s \n", parsed_frame.dispinfo.top_field_first ? "SI" : "NO");
+
     if (ctx->deint_mode_current == cudaVideoDeinterlaceMode_Weave) {
         av_fifo_generic_write(ctx->frame_queue, &parsed_frame, sizeof(CuvidParsedFrame), NULL);
     } else {
