@@ -350,10 +350,6 @@ static int CUDAAPI cuvid_handle_picture_display(void *opaque, CUVIDPARSERDISPINF
     parsed_frame.dispinfo = *dispinfo;
     ctx->internal_error = 0;
 
-    // For some reason, dispinfo->progressive_frame is sometimes wrong.
-    //parsed_frame.dispinfo.progressive_frame = ctx->progressive_sequence;
-    // Probemos
-
 
     av_log(avctx, AV_LOG_VERBOSE, "NVDEC PARSED FRAME IS PROGRESIVE? %s \n", parsed_frame.dispinfo.progressive_frame ? "SI" : "NO");
     av_log(avctx, AV_LOG_VERBOSE, "NVDEC PARSED FRAME TOP FIELD FIRST? %s \n", parsed_frame.dispinfo.top_field_first ? "SI" : "NO");
@@ -497,8 +493,6 @@ static int cuvid_output_frame(AVCodecContext *avctx, AVFrame *frame)
         params.progressive_frame = parsed_frame.dispinfo.progressive_frame;
         params.second_field = parsed_frame.second_field;
         params.top_field_first = parsed_frame.dispinfo.top_field_first;
-
-         av_log(avctx, AV_LOG_VERBOSE, "parsed_frame.dispinfo.progresive_frame=%n, parsed_frame.dispinfo.top_field_first=%n \n", parsed_frame.dispinfo.progressive_frame, parsed_frame.dispinfo.top_field_first);
 
         ret = CHECK_CU(ctx->cvdl->cuvidMapVideoFrame(ctx->cudecoder, parsed_frame.dispinfo.picture_index, &mapped_frame, &pitch, &params));
         if (ret < 0)
